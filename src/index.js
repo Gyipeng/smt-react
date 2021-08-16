@@ -1,78 +1,78 @@
 import React, {Component} from 'react';
-import {Chart} from '@antv/g2';
 
 
 export default class smtReact extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            data: [
-                {type: '未知', value: 654, percent: 0.02},
-                {type: '17 岁以下', value: 654, percent: 0.02},
-                {type: '18-24 岁', value: 4400, percent: 0.2},
-                {type: '25-29 岁', value: 5300, percent: 0.24},
-                {type: '30-39 岁', value: 6200, percent: 0.28},
-                {type: '40-49 岁', value: 3300, percent: 0.14},
-                {type: '50 岁以上', value: 1500, percent: 0.06},
-            ]
-    }
-
+        this.state = {}
+        this.chart = null
     }
 
     componentDidMount() {
-        let {data} = this.state
-        const chart = new Chart({
-            container: 'container',
-            autoFit: true,
-            height: 500,
-            padding: [50, 20, 50, 20],
-        });
-        chart.data(data);
-        chart.scale('value', {
-            alias: '销售额(万)',
-        });
+        let {actions, Bus} = this.props
+        actions.onGlobalStateChange((newState, prev) => {
+            this.renderView(newState)
+        }, true)
+    }
 
-        chart.axis('type', {
-            tickLine: {
-                alignTick: false,
+    getOption() {
+        let {option, keys} = this.props
+        let NewOption = {
+            title: {
+                text: keys
             },
-        });
-        chart.axis('value', false);
+            series: [{
+                name: '农产品',
+                type: 'pie',
+                radius: '50%',
+                data: option.data,
+                itemStyle: {
+                    color: "red"
+                }
+            }]
+        }
+        return NewOption
+    }
 
-        chart.tooltip({
-            showMarkers: false,
-        });
-        chart.interval().position('type*value');
-        chart.interaction('element-active');
+    renderView(state) {
+        let {Bus, actions, className = ".container"} = this.props
+        let option = this.getOption();
+        option = this.filterOption(option, state)
+        let chartDom = document.querySelector(className);
+        let myChart = echarts.init(chartDom);
+        option && myChart.setOption(option);
+    }
 
-// 添加文本标注
-        data.forEach((item) => {
-            chart
-                .annotation()
-                .text({
-                    position: [item.type, item.value],
-                    content: item.value,
-                    style: {
-                        textAlign: 'center',
-                    },
-                    offsetY: -30,
-                })
-                .text({
-                    position: [item.type, item.value],
-                    content: (item.percent * 100).toFixed(0) + '%',
-                    style: {
-                        textAlign: 'center',
-                    },
-                    offsetY: -12,
-                });
-        });
-        chart.render();
+    filterOption(option, state) {
+        for (let key in state) {
+            if (state[key].range.includes(this.props.keys)) {
+                if (key === "system") {
+                    //todo  option 覆盖
+                    option.series[0].itemStyle = Object.assign({}, option.series[0].itemStyle, state[key].itemStyle)
+                }
+                let condition = state[key]["condition"]
+                if (condition) {
+                    let c = this.getFirstData(condition)
+                    option.series[0].data =  option.series[0].data.filter(item => {
+                        return item[c] == condition[c]
+                    })
+                }
+            }
+        }
+        return option
+    }
+
+    getFirstData(data) {
+        for (let key in data) {
+            return key;
+        }
+
     }
 
     render() {
-
+        console.log(module,1234567);
         return (
-            <div id="container"></div>
+            null
         )
     }
 
