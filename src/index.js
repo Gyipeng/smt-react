@@ -66,11 +66,9 @@ export default class smtReact extends Component {
         for (let key in data) {
             return key;
         }
-
     }
 
     render() {
-        console.log(module,1234567);
         return (
             null
         )
