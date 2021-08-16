@@ -4,11 +4,8 @@ const compressing = require('compressing');
 var needle = require('needle');
 
 
-let conf = fs.createReadStream('config.ini');
-let out = fs.createWriteStream('example/dist/config.ini');
-conf.pipe(out)
-
-compressing.zip.compressDir('example/dist', 'dist.zip')
+fs.copyFileSync("config.ini", 'dist/config.ini')
+compressing.zip.compressDir('dist', 'dist.zip')
     .then(() => {
         let buffer = fs.readFileSync('dist.zip');
         let data = {

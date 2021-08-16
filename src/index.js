@@ -70,7 +70,7 @@ export default class smtReact extends Component {
 
     render() {
         return (
-            null
+        null
         )
     }
 

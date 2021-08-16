@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --open development",
+    "start": "webpack-dev-server --open development --env development",
     "build": "webpack --mode production",
-    "deploy": "node ./deploy"
+    "deploy": "node ./deploy",
+    "remote-start":"webpack-dev-server --open remoteDev"
   },
   "repository": {
     "type": "git",
