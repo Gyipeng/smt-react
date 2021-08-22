@@ -1,6 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const FileManagerPlugin = require('filemanager-webpack-plugin');
+// const FileManagerPlugin = require('filemanager-webpack-plugin');
 
 const htmlWebpackPlugin = new HtmlWebpackPlugin({
     template: path.join(__dirname, "./index.html"),
@@ -34,17 +34,17 @@ module.exports = (env) => {
         },
         plugins: [
             htmlWebpackPlugin,
-            new FileManagerPlugin({
-                    events: {
-                        onEnd: {
-                            copy: [
-                                {source: 'example/dist', destination: 'dist.zip'},
-                                {source: 'config.ini', destination: 'dist.zip'},
-                            ]
-                        }
-                    }
-                }
-            )
+            // new FileManagerPlugin({
+            //         events: {
+            //             onEnd: {
+            //                 copy: [
+            //                     {source: 'example/dist', destination: 'dist.zip'},
+            //                     {source: 'config.ini', destination: 'dist.zip'},
+            //                 ]
+            //             }
+            //         }
+            //     }
+            // )
         ],
         resolve: {
             extensions: [".js", ".jsx"]
