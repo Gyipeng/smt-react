@@ -12,16 +12,18 @@ module.exports = (env) => {
 
     let entry =null
     if (env === "development") {
-        entry = path.join(__dirname, "./app.js")
+        entry = path.join(__dirname, "./src/localDev/app.js")
     }else{
-        entry= path.join(__dirname, "./src/index.js")
+        entry= path.join(__dirname, "./src/entry.js")
     }
+    let filenames =process.cwd().split("/")
+    let filename=filenames[filenames.length-1]
     return {
         entry: entry,
         output: {
             path: path.join(__dirname, "dist"),
-            filename: 'smt-react.js',
-            library: "smt-react",
+            filename:`${filename}.js`,
+            library: filename,
             libraryTarget: "umd",
             umdNamedDefine: true
         },

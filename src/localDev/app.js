@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import SmtReact from './src/index'
+import SmtReact from '../entry'
 
 
 

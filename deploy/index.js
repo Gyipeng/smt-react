@@ -1,7 +1,16 @@
-const {https}= require('../utils/http.js')
 const  fs = require('fs');
 const compressing = require('compressing');
 var needle = require('needle');
+var ini = require('ini')
+
+
+let filenames =process.cwd().split("/")
+let filename=filenames[filenames.length-1]
+console.log(filenames);
+var config = ini.parse(fs.readFileSync('config.ini', 'utf-8'))
+config.name = filename
+
+fs.writeFileSync('config.ini', ini.stringify(config))
 
 
 fs.copyFileSync("config.ini", 'dist/config.ini')

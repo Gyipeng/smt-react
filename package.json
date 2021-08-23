@@ -8,7 +8,7 @@
     "start": "webpack-dev-server --open development --env development",
     "build": "webpack --mode production",
     "deploy": "node ./deploy",
-    "remote-start":"webpack-dev-server --open remoteDev"
+    "remote-start": "webpack-dev-server --open remoteDev"
   },
   "repository": {
     "type": "git",
@@ -42,6 +42,7 @@
     "compressing": "^1.5.1",
     "echarts": "^5.1.2",
     "fstream": "^1.0.12",
+    "ini": "^2.0.0",
     "needle": "^2.8.0",
     "qs": "^6.10.1",
     "request": "^2.88.2",
