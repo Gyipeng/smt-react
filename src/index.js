@@ -27,7 +27,7 @@ export default class smtReact extends Component {
                 radius: '50%',
                 data: option.data,
                 itemStyle: {
-                    color: "red"
+                    color: "green"
                 }
             }]
         }
